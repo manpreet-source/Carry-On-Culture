@@ -1,2 +1,6 @@
-import { EditorialPage } from "@/components/EditorialPage";
-export default async function DestinationPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const name = slug.split("-").map((x)=>x[0]?.toUpperCase()+x.slice(1)).join(" "); return <EditorialPage eyebrow="DESTINATION EDIT" title={`${name}, edited.`} intro="A destination hub for shopping edits, packing guides, and relevant in-trip reviews. Content is populated from the structured publishing system."/> }
+import { notFound } from "next/navigation";
+import { EditorialPost } from "@/components/editorial-post";
+import { getPost, getPosts } from "@/lib/content";
+
+export function generateStaticParams() { return getPosts("shopping-edit").map((post) => ({ slug: post.slug })); }
+export default async function DestinationEditPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const post = getPost("shopping-edit", slug); if (!post) notFound(); return <EditorialPost post={post} />; }
