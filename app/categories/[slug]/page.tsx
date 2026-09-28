@@ -1,0 +1,2 @@
+import { EditorialPage } from "@/components/EditorialPage";
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const name = slug.split("-").map((x)=>x[0]?.toUpperCase()+x.slice(1)).join(" "); return <EditorialPage eyebrow="CATEGORY EDIT" title={`${name}. Worth the space.`} intro="Browse packing guides, shopping edits, and reviews connected to this category."/> }
